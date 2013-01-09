@@ -86,12 +86,18 @@ Backbone 中文翻译文档
 
 如果model拥有 `validate` 方法， 那么属性验证会在 set 之前执行，如果验证失败，模型不会发生变化，这时 `set` 会返回 `false`， 否则 `set` 返回一个到这个model的引用。 也可以在选项中传入 `error` 回调函数，此时验证失败时会执行它而不触发 `"error"` 事件。
 
-传入`{silent: true}`会延迟事件，这在你想临时或迅速改变属性会非常有用，而且不会通过系统的其余部分进行传播。也就是说`silent`并不意味着改变(和事件)不会发生，只是说在下一个`change`前都是沉默的。
+传入`{silent: true}`会延迟事件，这在临时或迅速改变属性会非常有用，而且不会通过系统的其余部分进行传播。也就是说`silent`并不意味着改变(和事件)不会发生，只是说在下一个`change`前都是沉默的。
 
 ##escape
 **model.escape(attribute)**
 
+与 [get](#get) 类似，只是返回的是HTML转义后版本的model属性值。如果从model插入数据到HTML，使用 `escape` 取数据可以避免 XSS 攻击。
 
+	var hacker = new Backbone.Model({
+		name: "<script>alert('xss')</script>"
+	});
+	
+	alert(hacker.escape('name'));
 
 
 
