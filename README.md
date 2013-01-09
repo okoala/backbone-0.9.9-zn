@@ -123,14 +123,22 @@ Backbone 中文翻译文档
 
 **id**是model的特殊属性，可以是任意字符串（整型 id 或 UUID）。在属性中设置的 id 会被直接拷贝到model属性上。 我们可以从集合（collections）中通过 id 获取model，另外 id 通常用于生成model的 URLs。
 
+##idAttribute
+**model.idAttribute**
 
+一个model的唯一标示符，被储存在`id`属性下。如果使用一个不同的唯一的key直接和后端通信。可以设置Model的`idAttribute`到一个从key到`id`的一个透明映射中。
 
+	var Meal = Backbone.Model.extend({
+		idAttribute: "_id"
+	});
+	
+	var cake = new Meal({ _id: 1, name: "Cake" });
+	alert("Cake id: " + cake.id);
+	
+##cid
+**model.cid**
 
-
-
-
-
-
+model的特殊属性，cid 或客户 id 是当所有model创建时自动产生的唯一标识符。 客户 ids 在model尚未保存到服务器之前便存在，此时model可能仍不具有最终的 id， 客户 ids 的形式为：`c1, c2, c3 ...`
 
 
 
