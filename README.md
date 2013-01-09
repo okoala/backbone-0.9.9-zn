@@ -25,7 +25,7 @@ Backbone 中文翻译文档
 	sidebar.promptColor();
 
 ##extend
-Backbone.Model.extend(properties, [classProperties]) 
+**Backbone.Model.extend(properties, [classProperties]) **
 
 要创建自己的 **Model** 类，你可以扩展 `Backbone.Model` 并提供实例 **属性**(properties) ， 以及可选的可以直接注册到构造函数的 **类属性** (classProperties)。
 
@@ -56,9 +56,9 @@ Backbone.Model.extend(properties, [classProperties])
 	});
 
 ##constructor / initialize
-new Model([attributes], [options])
+**new Model([attributes], [options])**
 
-当创建model实例时，可以传入 **属性** 初始值，这些值会被 `set` 到model。 如果定义了 **initialize** 函数，该函数会在model创建后执行。
+当创建model实例时，可以传入 **属性** (attributes)初始值，这些值会被 `set` 到model。 如果定义了 **initialize** 函数，该函数会在model创建后执行。
 
 	new Book({
 	  	title: "One Thousand and One Nights",
@@ -71,11 +71,25 @@ new Model([attributes], [options])
 
 
 ##get
-model.set(attributes, [options])
+**model.set(attributes, [options])**
 
-从当前model中获取当前属性值，比如：note.get("title")
+从当前model中获取当前属性(attributes)值，比如：note.get("title")
 
+##set
+**model.set(attributes, [options]) **
 
+向model设置一个或多个hash属性(attributes)。如果任何一个属性改变了model的状态，在不传入 `{silent: true}` 选项参数的情况下，会触发 `"change"` 事件，更改特定属性的事件也会触发。 可以绑定事件到某个属性，例如：change:title，及 change:content。
+
+	note.set({title: "March 20", content: "In his eyes she eclipses..."});
+	
+	book.set("title", "A Scandal in Bohemia");
+
+如果model拥有 `validate` 方法， 那么属性验证会在 set 之前执行，如果验证失败，模型不会发生变化，这时 `set` 会返回 `false`， 否则 `set` 返回一个到这个model的引用。 也可以在选项中传入 `error` 回调函数，此时验证失败时会执行它而不触发 `"error"` 事件。
+
+传入`{silent: true}`会延迟事件，这在你想临时或迅速改变属性会非常有用，而且不会通过系统的其余部分进行传播。也就是说`silent`并不意味着改变(和事件)不会发生，只是说在下一个`change`前都是沉默的。
+
+##escape
+**model.escape(attribute)**
 
 
 
