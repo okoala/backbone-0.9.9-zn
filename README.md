@@ -91,13 +91,41 @@ Backbone 中文翻译文档
 ##escape
 **model.escape(attribute)**
 
-与 [get](#get) 类似，只是返回的是HTML转义后版本的model属性值。如果从model插入数据到HTML，使用 `escape` 取数据可以避免 XSS 攻击。
+与 [get](#get) 类似，只是返回的是HTML转义后版本的model属性值。如果从model插入数据到HTML，使用 `escape` 取数据可以避免 [XSS](http://en.wikipedia.org/wiki/Cross-site_scripting) 攻击。
 
 	var hacker = new Backbone.Model({
 		name: "<script>alert('xss')</script>"
 	});
 	
 	alert(hacker.escape('name'));
+
+##has
+**model.has(attribute)**
+
+属性值为非 null 或非 undefined 时返回 true
+
+	if (note.has("title")) {
+		...
+	}
+
+##unset
+**model.unset(attribute, [options])**
+
+从内部属性散列表中删除指定属性(attribute)。 如果未设置 `silent` 选项，会触发 `"change"` 事件。
+
+##clear
+**model.clear([options])**
+
+从model中删除所有属性， 包括[id](#id)属性。 如果未设置 silent 选项，会触发 "change" 事件。
+
+##id
+**model.id**
+
+**id**是model的特殊属性，可以是任意字符串（整型 id 或 UUID）。在属性中设置的 id 会被直接拷贝到model属性上。 我们可以从集合（collections）中通过 id 获取model，另外 id 通常用于生成model的 URLs。
+
+
+
+
 
 
 
